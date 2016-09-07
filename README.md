@@ -6,6 +6,11 @@ PHP Library for Imap Connections
 * php imap extension
 * php mb_string extension
 
+# Installation
+```
+composer require mail-map/mail-map
+```
+
 # Usage
 This is a small client library that interfaces with php's imap library.
 
