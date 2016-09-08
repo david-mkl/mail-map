@@ -2,7 +2,9 @@
 
 namespace MailMap;
 
+use InvalidArgumentException;
 use MailMap\Contracts\MailFactory as FactoryContract;
+use MailMap\Contracts\Mail as MailContract;
 use MailMap\Mail;
 
 class MailFactory implements FactoryContract
@@ -29,6 +31,31 @@ class MailFactory implements FactoryContract
     protected static $bodyFlags = FT_UID | FT_PEEK;
 
     /**
+     * The type of Mail wrapper this factory creates.
+     *
+     * Must be an implementation of \MailMap\Contracts\Mail
+     *
+     * @var string
+     */
+    private $mailClass;
+
+    /**
+     * Set the Mail wrapper class. Defaults to
+     * the provided Mail implementation
+     *
+     * @param string $mailClass
+     * @throws \InvalidArgumentException
+     */
+     public function __construct($mailClass = Mail::class)
+     {
+         if (!is_subclass_of($mailClass, MailContract::class)) {
+             throw new InvalidArgumentException(sprintf('%s must implement %s', $mailClass, MailContract::class));
+         }
+
+         $this->mailClass = $mailClass;
+     }
+
+    /**
      * Create new mail from uid
      *
      * @param  int $uid
@@ -37,7 +64,7 @@ class MailFactory implements FactoryContract
      */
     public function create($uid, $stream)
     {
-        return new Mail(
+        return new $this->mailClass(
             $uid,
             $stream,
             $this->parseMailHeader($stream, $uid),
