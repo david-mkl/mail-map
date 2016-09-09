@@ -140,7 +140,7 @@ The `Mail` object has the following public properties
 * bool $deleted - Deleted flag
 * bool $draft - Draft flag
 
-An address object (see `to`, `cc`, `bcc`, `sender`, `from`, `replyTo` properties above) is a standard object that has an `address` property, that contains the email address as `'example@gmail.com'` and a `name` property that contains the name corresponding to the email address as `'John Smith'`.
+An address object (see `to`, `cc`, `bcc`, `sender`, `from`, `replyTo` properties above) is a standard object that has an `address` property, that contains the email address as `'example@gmail.com'`, a `name` property that contains the name corresponding to the email address as `'John Smith'`, and the domain of the address as `'gmail.com'`.
 
 ### getStream()
 Get the underlying imap stream resource

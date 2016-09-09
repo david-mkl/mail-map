@@ -120,6 +120,7 @@ class MailFactory implements FactoryContract
         return array_map(function ($address) {
             return (object) [
                 'address' => $address->mailbox.'@'.$address->host,
+                'domain' => $address->host,
                 'name' => isset($address->personal)
                     ? static::convertBodyEncoding($address->personal)
                     : null
